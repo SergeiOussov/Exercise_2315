@@ -21,6 +21,12 @@ public class UserGlobalExceptionHandler {
     }
 
     @ExceptionHandler
+    private ResponseEntity<UserErrorResponse> handleException(UserNotUpdatedException e) {
+        return new ResponseEntity<>(new UserErrorResponse(e.getMessage(), System.currentTimeMillis()),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
     private ResponseEntity<UserErrorResponse> handleException(Exception e) {
         return new ResponseEntity<>(new UserErrorResponse(e.getMessage(), System.currentTimeMillis()),
                 HttpStatus.BAD_REQUEST);
